@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "dotenv": "^16.4.5",
     "element-plus": "^2.6.1",
     "vue": "^3.2.45",
@@ -18,6 +19,7 @@
     "@vitejs/plugin-vue": "^3.2.0",
     "autoprefixer": "^9.8.8",
     "postcss": "^7.0.39",
+    "sass": "^1.64.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-components": "^0.26.0",
