@@ -13,7 +13,7 @@
         <span class="h-px w-16 bg-gray-200"></span>
       </div>
       <el-form ref="formRef" :rules="rules" :model="loginForm" class="w-64">
-        <el-form-item>
+        <el-form-item prop="username">
           <el-input v-model="loginForm.username" placeholder="请输入用户名">
             <template #prefix>
               <el-icon>
@@ -22,7 +22,7 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="password">
           <el-input v-model="loginForm.password" placeholder="请输入密码" show-password>
             <template #prefix>
               <el-icon>
