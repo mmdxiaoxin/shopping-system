@@ -1,16 +1,3 @@
-<script setup>
-import {reactive} from 'vue'
-
-const form = reactive({
-  username: "",
-  password: ""
-})
-
-const onSubmit = () => {
-  console.log('submit!')
-}
-</script>
-
 <template>
   <el-row class="login-container">
     <el-col :lg="16" :md="12" class="login-left">
@@ -25,9 +12,9 @@ const onSubmit = () => {
         <span>账号密码登录</span>
         <span class="h-px w-16 bg-gray-200"></span>
       </div>
-      <el-form :model="form" class="w-64">
+      <el-form ref="formRef" :rules="rules" :model="loginForm" class="w-64">
         <el-form-item>
-          <el-input v-model="form.username" placeholder="请输入用户名">
+          <el-input v-model="loginForm.username" placeholder="请输入用户名">
             <template #prefix>
               <el-icon>
                 <User/>
@@ -36,10 +23,10 @@ const onSubmit = () => {
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="form.password" placeholder="请输入密码">
+          <el-input v-model="loginForm.password" placeholder="请输入密码" show-password>
             <template #prefix>
               <el-icon>
-                <lock/>
+                <Lock/>
               </el-icon>
             </template>
           </el-input>
@@ -51,6 +38,46 @@ const onSubmit = () => {
     </el-col>
   </el-row>
 </template>
+
+<script setup>
+import {reactive, ref} from 'vue'
+import {Lock, User} from "@element-plus/icons-vue";
+
+const formRef = ref(null)
+
+const loginForm = reactive({
+  username: "",
+  password: ""
+})
+
+const rules = {
+  username: [
+    {
+      required: true,
+      message: '用户名不能为空',
+      trigger: 'blur'
+    },
+  ],
+  password: [
+    {
+      required: true,
+      message: '用户名不能为空',
+      trigger: 'blur'
+    },
+  ]
+}
+
+const onSubmit = () => {
+  formRef.value.validate((valid) => {
+    if (valid) {
+      console.log('submit!')
+    } else {
+      console.log('error submit!!')
+      return false
+    }
+  })
+}
+</script>
 
 <style scoped lang="scss">
 .login-container {
