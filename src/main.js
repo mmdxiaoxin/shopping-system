@@ -5,7 +5,7 @@ import 'element-plus/dist/index.css'
 import App from './App.vue'
 
 
-import './assets/main.css'
+import './styles/main.css'
 import router from "@/router";
 
 const app = createApp(App);
