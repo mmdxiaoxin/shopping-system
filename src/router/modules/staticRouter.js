@@ -3,6 +3,16 @@ export const staticRouter = [
         path: '/login',
         name: 'login',
         component: () => import('@/views/login/login.vue'),
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: () => import('@/views/register/register.vue'),
+    },
+    {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/home/home.vue'),
     }
 ];
 
