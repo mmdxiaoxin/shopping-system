@@ -1,7 +1,14 @@
 {
   "name": "shopping-system",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
+  "description": "shopping-system study",
+  "author": {
+    "name": "mmdxiaoxin",
+    "email": "782446723@qq.com",
+    "url": "https://github.com/mmdxiaoxin"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
