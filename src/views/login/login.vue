@@ -32,7 +32,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button round color="#626aef" class="w-64" type="primary" @click="onSubmit">登 录</el-button>
+          <el-button round color="#626aef" class="w-64" type="primary" @click="onSubmit" :loading="loading">登 录</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -42,8 +42,14 @@
 <script setup>
 import {reactive, ref} from 'vue'
 import {Lock, User} from "@element-plus/icons-vue";
+import {login} from "@/api/modules/user";
+import {ElMessage, ElNotification} from "element-plus";
+import {useCookies} from "@vueuse/integrations/useCookies";
+import router from "@/router";
 
-const formRef = ref(null)
+
+const formRef = ref(null);
+const loading = ref(false);
 
 const loginForm = reactive({
   username: "",
@@ -70,9 +76,28 @@ const rules = {
 const onSubmit = () => {
   formRef.value.validate((valid) => {
     if (valid) {
-      console.log('submit!')
+      loading.value = true;
+      login({username: loginForm.username, password: loginForm.password}).then(res => {
+
+        // 提示成功
+        ElNotification({
+          message: "登录成功",
+          type: 'success',
+          duration:3000
+        })
+
+        // 存储token
+        const cookie = useCookies()
+        cookie.set("admin-token",res.token)
+
+        router.push('/home');
+      }).finally(
+          ()=>{
+            loading.value = false;
+          }
+      )
     } else {
-      console.log('error submit!!')
+      ElMessage.error('用户名或密码不能为空')
       return false
     }
   })

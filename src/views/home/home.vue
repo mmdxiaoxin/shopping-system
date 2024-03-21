@@ -1,13 +1,25 @@
-<script setup>
-
-</script>
-
 <template>
   <div>
-    <h1>Home</h1>
+    后台首页
+    <el-button @click="setCookie">设置</el-button>
+    <el-button @click="getCookie">读取</el-button>
+    <el-button @click="removeCookie">删除</el-button>
   </div>
 </template>
+<script setup>
+import {useCookies} from '@vueuse/integrations/useCookies'
 
-<style scoped>
+const cookie = useCookies()
 
-</style>
+const setCookie = () => {
+  cookie.set("admin-token", 123456);
+}
+
+const getCookie = () => {
+  console.log(cookie.get("admin-token"));
+}
+
+const removeCookie = () => {
+  cookie.remove("admin-token");
+}
+</script>
