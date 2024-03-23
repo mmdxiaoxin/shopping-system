@@ -21,6 +21,9 @@ export default defineConfig({
         }
     },
     server: {
+        host: "0.0.0.0",
+        open:true,
+        cors: true,
         proxy: {
             '/api': {
                 target: 'http://ceshi13.dishait.cn',
