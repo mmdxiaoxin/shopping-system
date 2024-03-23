@@ -2,6 +2,9 @@ export const staticRouter = [
     {
         path: '/login',
         name: 'login',
+        meta: {
+            title: "登录"
+        },
         component: () => import('@/views/login/login.vue'),
     },
     {
@@ -10,9 +13,16 @@ export const staticRouter = [
         component: () => import('@/views/register/register.vue'),
     },
     {
-        path: '/home',
+        path: '/',
         name: 'home',
-        component: () => import('@/views/home/home.vue'),
+        component: () => import('@/layouts/admin.vue'),
+        children: [{
+            path: "/",
+            component: () => import("@/views/home/home.vue"),
+            meta: {
+                title: "后台首页"
+            }
+        }]
     }
 ];
 
