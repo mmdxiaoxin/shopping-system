@@ -7,6 +7,7 @@ import App from './App.vue'
 
 import './styles/main.css'
 import router from "@/router";
+import store from "@/stores";
 
 const app = createApp(App);
 
@@ -15,6 +16,9 @@ app.use(router);
 
 //element-plus
 app.use(ElementPlus);
+
+//vuex
+app.use(store);
 
 //element-plus-icons
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
