@@ -42,10 +42,12 @@
 <script setup>
 import {reactive, ref} from 'vue'
 import {Lock, User} from "@element-plus/icons-vue";
-import {login} from "@/api/modules/user";
-import {ElMessage, ElNotification} from "element-plus";
-import {useCookies} from "@vueuse/integrations/useCookies";
+import {ElMessage} from "element-plus";
 import router from "@/router";
+import {toast} from "@/utils/common";
+import {useStore} from "vuex";
+
+const store = useStore()
 
 
 const formRef = ref(null);
@@ -67,7 +69,7 @@ const rules = {
   password: [
     {
       required: true,
-      message: '用户名不能为空',
+      message: '密码不能为空',
       trigger: 'blur'
     },
   ]
@@ -77,25 +79,15 @@ const onSubmit = () => {
   formRef.value.validate((valid) => {
     if (valid) {
       loading.value = true;
-      login({username: loginForm.username, password: loginForm.password}).then(res => {
+      console.log(loginForm);
 
-        // 提示成功
-        ElNotification({
-          message: "登录成功",
-          type: 'success',
-          duration:3000
-        })
+      store.dispatch("login", loginForm).then(() => {
+        toast("登录成功")
+        router.push("/")
+      }).finally(() => {
+        loading.value = false
+      })
 
-        // 存储token
-        const cookie = useCookies()
-        cookie.set("admin-token",res.token)
-
-        router.push('/home');
-      }).finally(
-          ()=>{
-            loading.value = false;
-          }
-      )
     } else {
       ElMessage.error('用户名或密码不能为空')
       return false

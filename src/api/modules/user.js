@@ -1,10 +1,13 @@
 import service from "@/api";
 
 /*用户登陆
-* @param {username, password} params
+* @param {username, password}
 * */
-export const loginApi = (params) => {
-    return service.post("/admin/login", params);
+export const loginApi = (username, password) => {
+    return service.post("/admin/login", {
+        username,
+        password
+    });
 }
 
 export const getUserInfoApi = () => {
