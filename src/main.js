@@ -8,6 +8,7 @@ import App from './App.vue'
 import './styles/main.css'
 import router from "@/router";
 import store from "@/stores";
+import "nprogress/nprogress.css";
 
 const app = createApp(App);
 

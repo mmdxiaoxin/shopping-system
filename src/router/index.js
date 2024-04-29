@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import {staticRouter, errorRouter} from '@/router/modules/staticRouter'
 import {getToken} from "@/utils/auth";
-import {toast} from "@/utils/common";
+import {toast, showFullLoading, hideFullLoading} from "@/utils/common";
 import {useStore} from "vuex";
 
 
@@ -14,6 +14,9 @@ const router = createRouter({
 
 //全局路由守卫
 router.beforeEach(async (to, from, next) => {
+    //显示全局Loading
+    showFullLoading();
+
     const token = getToken();
 
     //没有登陆，跳转回登陆页面
@@ -38,6 +41,12 @@ router.beforeEach(async (to, from, next) => {
     document.title = title;
 
     next();
+});
+
+//全局后置路由守卫
+router.afterEach((to, from) => {
+    //隐藏全局Loading
+    hideFullLoading();
 });
 
 export default router;
