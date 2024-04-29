@@ -22,7 +22,7 @@ app.use(ElementPlus);
 app.use(store);
 
 //element-plus-icons
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-    app.component(key, component)
-}
+// for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+//     app.component(key, component)
+// }
 app.mount('#app');
