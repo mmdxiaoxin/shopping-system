@@ -2,10 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import {staticRouter, errorRouter} from '@/router/modules/staticRouter'
 import {getToken} from "@/utils/auth";
 import {toast, showFullLoading, hideFullLoading} from "@/utils/common";
-import {useStore} from "vuex";
-
-
-const store = useStore();
+import store from "@/stores";
 
 const router = createRouter({
     history: createWebHistory(),
