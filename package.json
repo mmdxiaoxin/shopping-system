@@ -31,6 +31,7 @@
     "@vitejs/plugin-vue": "^3.2.0",
     "autoprefixer": "^9.8.8",
     "postcss": "^7.0.39",
+    "prettier": "^3.2.5",
     "sass": "^1.64.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "unplugin-auto-import": "^0.17.5",
