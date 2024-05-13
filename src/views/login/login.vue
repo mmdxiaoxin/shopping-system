@@ -17,22 +17,34 @@
           <el-input v-model="loginForm.username" placeholder="请输入用户名">
             <template #prefix>
               <el-icon>
-                <User/>
+                <User />
               </el-icon>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" placeholder="请输入密码" show-password>
+          <el-input
+            v-model="loginForm.password"
+            placeholder="请输入密码"
+            show-password
+          >
             <template #prefix>
               <el-icon>
-                <Lock/>
+                <Lock />
               </el-icon>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button round color="#626aef" class="w-64" type="primary" @click="onSubmit" :loading="loading">登 录</el-button>
+          <el-button
+            round
+            color="#626aef"
+            class="w-64"
+            type="primary"
+            @click="onSubmit"
+            :loading="loading"
+            >登 录</el-button
+          >
         </el-form-item>
       </el-form>
     </el-col>
@@ -40,40 +52,39 @@
 </template>
 
 <script setup>
-import {reactive, ref} from 'vue'
-import {Lock, User} from "@element-plus/icons-vue";
-import {ElMessage} from "element-plus";
+import { reactive, ref } from "vue";
+import { Lock, User } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
 import router from "@/router";
-import {toast} from "@/utils/common";
-import {useStore} from "vuex";
+import { toast } from "@/utils/common";
+import { useStore } from "vuex";
 
-const store = useStore()
-
+const store = useStore();
 
 const formRef = ref(null);
 const loading = ref(false);
 
 const loginForm = reactive({
   username: "",
-  password: ""
-})
+  password: "",
+});
 
 const rules = {
   username: [
     {
       required: true,
-      message: '用户名不能为空',
-      trigger: 'blur'
+      message: "用户名不能为空",
+      trigger: "blur",
     },
   ],
   password: [
     {
       required: true,
-      message: '密码不能为空',
-      trigger: 'blur'
+      message: "密码不能为空",
+      trigger: "blur",
     },
-  ]
-}
+  ],
+};
 
 const onSubmit = () => {
   formRef.value.validate((valid) => {
@@ -81,19 +92,21 @@ const onSubmit = () => {
       loading.value = true;
       console.log(loginForm);
 
-      store.dispatch("login", loginForm).then(() => {
-        toast("登录成功")
-        router.push("/")
-      }).finally(() => {
-        loading.value = false
-      })
-
+      store
+        .dispatch("login", loginForm)
+        .then(() => {
+          toast("登录成功");
+          router.push("/");
+        })
+        .finally(() => {
+          loading.value = false;
+        });
     } else {
-      ElMessage.error('用户名或密码不能为空')
-      return false
+      ElMessage.error("用户名或密码不能为空");
+      return false;
     }
-  })
-}
+  });
+};
 </script>
 
 <style scoped lang="scss">
