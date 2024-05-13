@@ -90,7 +90,6 @@ import { useFullscreen } from "@vueuse/core";
 import { useLogout, useResetPassword } from "@/hooks/useUser";
 import FormDrawer from "@/components/FormDrawer/FormDrawer.vue";
 
-
 const router = useRouter();
 const store = useStore();
 // 全屏图标操作
