@@ -1,7 +1,7 @@
 <template>
   <div class="f-menu" :style="{ width: store.state.asideWidth }">
     <el-menu
-      default-active="2"
+      :default-active="defaultActive"
       class="border-0"
       @select="handleSelect"
       :collapse="isCollapse"
@@ -43,16 +43,18 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
-const isCollapse = computed(() => store.state.asideWidth === "64px");
 /**
  * refs
  */
 const router = useRouter();
 const store = useStore();
+const route = useRoute();
+const isCollapse = computed(() => store.state.asideWidth === "64px");
+const defaultActive = ref(route.path);
 
 /**
  * data
