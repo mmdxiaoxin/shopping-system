@@ -47,47 +47,22 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
 
-/**
- * refs
- */
 const router = useRouter();
 const store = useStore();
 const route = useRoute();
-const isCollapse = computed(() => store.state.asideWidth === "64px");
-const defaultActive = ref(route.path);
 
 /**
  * data
  */
-const asideMenus = [
-  {
-    name: "后台面板",
-    icon: "help",
-    child: [
-      {
-        name: "主控台",
-        icon: "home-filled",
-        frontpath: "/",
-      },
-    ],
-  },
-  {
-    name: "商城管理",
-    icon: "shopping-bag",
-    child: [
-      {
-        name: "商品管理",
-        icon: "shopping-cart-full",
-        frontpath: "/goods/list",
-      },
-    ],
-  },
-];
+const isCollapse = computed(() => store.state.asideWidth === "64px");
+const asideMenus = computed(() => store.state.menus);
+const defaultActive = ref(route.path);
 
 /**
  * methods
  */
 const handleSelect = (e) => {
+  console.log(e);
   router.push(e);
 };
 </script>
@@ -103,5 +78,9 @@ const handleSelect = (e) => {
   @apply shadow-md
   fixed
   bg-white;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 }
 </style>

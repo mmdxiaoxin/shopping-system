@@ -9,6 +9,10 @@ const store = createStore({
       user: {},
 
       asideWidth: "250px",
+
+      menus: [],
+
+      ruleNames: [],
     };
   },
   mutations: {
@@ -18,6 +22,12 @@ const store = createStore({
     },
     HANDLE_ASIDE_WIDTH(state) {
       state.asideWidth = state.asideWidth === "250px" ? "64px" : "250px";
+    },
+    SET_MENUS(state, menus) {
+      state.menus = menus;
+    },
+    SET_RULE_NAMES(state, ruleNames) {
+      state.ruleNames = ruleNames;
     },
   },
   actions: {
@@ -39,6 +49,8 @@ const store = createStore({
         getUserInfoApi()
           .then((res) => {
             commit("SET_USERINFO", res);
+            commit("SET_MENUS", res.menus);
+            commit("SET_RULE_NAMES", res.ruleNames);
             resolve(res);
           })
           .catch((err) => reject(err));

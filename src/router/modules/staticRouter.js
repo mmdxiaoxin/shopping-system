@@ -14,24 +14,8 @@ export const staticRouter = [
   },
   {
     path: "/",
-    name: "home",
+    name: "admin",
     component: () => import("@/layouts/admin.vue"),
-    children: [
-      {
-        path: "/",
-        component: () => import("@/views/home/home.vue"),
-        meta: {
-          title: "后台首页",
-        },
-      },
-      {
-        path: "/goods/list",
-        component: () => import("@/views/goods/list.vue"),
-        meta: {
-          title: "商品管理",
-        },
-      },
-    ],
   },
 ];
 

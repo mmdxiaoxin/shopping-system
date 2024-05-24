@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from "vue";
+
 const tableData = ref([
   {
     date: "2016-05-02",
