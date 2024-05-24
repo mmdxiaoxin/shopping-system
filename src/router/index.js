@@ -30,16 +30,17 @@ router.beforeEach(async (to, from, next) => {
   }
 
   //登陆后，自动获取用户信息
+  let hasNewRoutes = false;
   if (token && store) {
     const { menus } = await store.dispatch("getUserInfo");
-    addRoutes(menus);
+    hasNewRoutes = addRoutes(menus);
   }
 
   // 设置页面标题
   let title = (to.meta.title ? to.meta.title : "") + "-商城后台管理系统";
   document.title = title;
 
-  next();
+  hasNewRoutes ? next(to.fullPath) : next();
 });
 
 //全局后置路由守卫
