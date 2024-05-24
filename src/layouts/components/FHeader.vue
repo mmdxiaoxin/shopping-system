@@ -4,8 +4,9 @@
       <el-icon class="mr-1"><eleme-filled /></el-icon>
       商城后台管理
     </span>
-    <el-icon class="icon-btn">
-      <fold />
+    <el-icon class="icon-btn" @click="handleCollapse">
+      <fold v-if="store.state.asideWidth === `250px`" />
+      <Expand v-else />
     </el-icon>
     <el-tooltip effect="dark" content="刷新" placement="bottom">
       <el-icon class="icon-btn" @click="handleRefresh">
@@ -80,6 +81,7 @@ import {
   Aim,
   ArrowDown,
   ElemeFilled,
+  Expand,
   Fold,
   FullScreen,
   Refresh,
@@ -114,6 +116,10 @@ const handleCommand = (c) => {
       openRePasswordForm();
       break;
   }
+};
+
+const handleCollapse = () => {
+  store.commit("HANDLE_ASIDE_WIDTH");
 };
 
 // 刷新
