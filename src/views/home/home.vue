@@ -1,26 +1,29 @@
 <template>
+  <div>后台首页</div>
   <div>
-    后台首页
-    <el-button @click="setCookie">设置</el-button>
-    <el-button @click="getCookie">读取</el-button>
-    <el-button v-auth="[`delete`]" @click="removeCookie">删除</el-button>
+    <MyInput ref="inputRef" v-model="data" placeholder="地址">
+      <template #prepend>
+        <el-select v-model="select" placeholder="Select" style="width: 115px">
+          <el-option label="Restaurant" value="1" />
+          <el-option label="Order No." value="2" />
+          <el-option label="Tel" value="3" />
+        </el-select>
+      </template>
+      <template #append>
+        <el-button :icon="Search" />
+      </template>
+    </MyInput>
   </div>
 </template>
 <script setup>
-import { useCookies } from "@vueuse/integrations/useCookies";
+import MyInput from "@/components/MyInput.vue";
+import { ref, onMounted } from "vue";
+import { Search } from "@element-plus/icons-vue";
+const data = ref("");
+const select = ref("");
+const inputRef = ref();
 
-const cookie = useCookies();
-
-const setCookie = () => {
-  cookie.set("admin-token", 123456);
-  console.log("设置成功");
-};
-
-const getCookie = () => {
-  console.log(cookie.get("admin-token"));
-};
-
-const removeCookie = () => {
-  cookie.remove("admin-token");
-};
+onMounted(() => {
+  inputRef.value.focus();
+});
 </script>
