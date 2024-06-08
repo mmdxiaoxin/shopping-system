@@ -1,5 +1,5 @@
 <template>
     <div>
-        分类列表
+      优惠券列表
     </div>
 </template>

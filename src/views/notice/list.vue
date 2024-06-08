@@ -1,5 +1,5 @@
 <template>
     <div>
-        分类列表
+      公告列表
     </div>
 </template>

@@ -52,12 +52,15 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <HomeNavs />
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
 import { getStatistics1 } from "@/api/modules/dashboard";
-import CountTo from "@/components/CountTo.vue";
+import CountTo from "@/views/home/Components/CountTo.vue";
+import HomeNavs from "@/views/home/Components/HomeNavs.vue";
 
 const panelsData = ref([]);
 const getStatisticsData = async () => {
