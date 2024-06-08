@@ -10,9 +10,9 @@
       <el-main>
         <f-tag-list />
         <router-view v-slot="{ Component }">
-          <keep-alive max="10">
+          <transition name="fade">
             <component :is="Component" />
-          </keep-alive>
+          </transition>
         </router-view>
       </el-main>
     </el-container>
@@ -29,5 +29,22 @@ const store = useStore();
 <style lang="scss">
 .el-aside {
   transition: all 0.2s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-leave-from,
+.fade-enter-to {
+  opacity: 1;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s;
+}
+.fade-enter-active {
+  transition-delay: 0.3s;
 }
 </style>
