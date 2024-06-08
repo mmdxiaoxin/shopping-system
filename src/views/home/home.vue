@@ -55,25 +55,43 @@
 
     <HomeNavs />
 
-    <el-row :gutter="20">
+    <el-row :gutter="20" class="mt-5">
       <el-col :span="12" :offset="0">
         <HomeChart />
       </el-col>
-      <el-col :span="12" :offset="0"></el-col>
+      <el-col :span="12" :offset="0">
+        <HomeCard
+          title="店铺及商品提示"
+          tip="店铺及商品提示"
+          :buttons="goodsData"
+          class="mb-3"
+        />
+        <HomeCard
+          title="交易提示"
+          tip="需要立即处理的交易订单"
+          :buttons="orderData"
+        />
+      </el-col>
     </el-row>
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
-import { getStatistics1 } from "@/api/modules/dashboard";
+import { getStatistics1, getStatistics2 } from "@/api/modules/dashboard";
 import CountTo from "@/views/home/Components/CountTo.vue";
 import HomeNavs from "@/views/home/Components/HomeNavs.vue";
 import HomeChart from "@/views/home/Components/HomeChart.vue";
+import HomeCard from "@/views/home/Components/HomeCard.vue";
 
 const panelsData = ref([]);
+const goodsData = ref([]);
+const orderData = ref([]);
 const getStatisticsData = async () => {
   const { panels } = await getStatistics1();
+  const { goods, order } = await getStatistics2();
   panelsData.value = panels;
+  goodsData.value = goods;
+  orderData.value = order;
 };
 getStatisticsData();
 </script>
