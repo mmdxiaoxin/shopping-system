@@ -42,7 +42,7 @@
             </div>
           </template>
           <span class="text-3xl font-bold text-gray-500">
-            {{ value }}
+            <CountTo :to="value" :duration="0.5" />
           </span>
           <el-divider />
           <div class="flex justify-between text-sm text-gray-500">
@@ -57,6 +57,8 @@
 <script setup>
 import { ref } from "vue";
 import { getStatistics1 } from "@/api/modules/dashboard";
+import CountTo from "@/components/CountTo.vue";
+
 const panelsData = ref([]);
 const getStatisticsData = async () => {
   const { panels } = await getStatistics1();
