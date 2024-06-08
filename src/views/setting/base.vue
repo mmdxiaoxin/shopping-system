@@ -1,5 +1,5 @@
 <template>
     <div>
-        分类列表
+      配置
     </div>
 </template>

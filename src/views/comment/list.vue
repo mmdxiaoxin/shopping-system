@@ -1,5 +1,5 @@
 <template>
     <div>
-        分类列表
+       评价列表
     </div>
 </template>

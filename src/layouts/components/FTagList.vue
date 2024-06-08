@@ -18,7 +18,7 @@
     </el-tabs>
 
     <span class="tag-btn">
-      <el-dropdown>
+      <el-dropdown @command="handleTabList">
         <span class="el-dropdown-link">
           <el-icon>
             <arrow-down />
@@ -26,11 +26,8 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>Action 1</el-dropdown-item>
-            <el-dropdown-item>Action 2</el-dropdown-item>
-            <el-dropdown-item>Action 3</el-dropdown-item>
-            <el-dropdown-item disabled>Action 4</el-dropdown-item>
-            <el-dropdown-item divided>Action 5</el-dropdown-item>
+            <el-dropdown-item command="clearOther">关闭其他</el-dropdown-item>
+            <el-dropdown-item command="clearAll">关闭全部</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -39,71 +36,13 @@
   <div style="height: 44px"></div>
 </template>
 <script setup>
-import { ref, onBeforeMount } from "vue";
-import { useStore } from "vuex";
+import { useTabList } from "@/hooks/useTabList";
 import { ArrowDown } from "@element-plus/icons-vue";
-import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
-import { useCookies } from "@vueuse/integrations/useCookies";
+import { useStore } from "vuex";
 
+const { activeTab, tabList, removeTab, changeTab, handleTabList } =
+  useTabList();
 const store = useStore();
-const route = useRoute();
-const router = useRouter();
-const cookies = useCookies();
-
-const activeTab = ref(route.path);
-const tabList = ref([
-  {
-    title: "后台首页",
-    path: "/",
-  },
-]);
-
-onBeforeRouteUpdate((to) => {
-  activeTab.value = to.path;
-  addTab({
-    title: to.meta.title,
-    path: to.path,
-  });
-});
-
-const initTabList = () => {
-  const tabs = cookies.get("tabList");
-  if (tabs) {
-    tabList.value = tabs;
-  }
-};
-
-const addTab = (tab) => {
-  tabList.value.findIndex((item) => item.path === tab.path) === -1 &&
-    tabList.value.push(tab);
-  cookies.set("tabList", tabList.value);
-};
-
-const removeTab = (targetName) => {
-  const tabs = tabList.value;
-  let activeName = activeTab.value;
-  if (activeName === targetName) {
-    tabs.forEach((tab, index) => {
-      if (tab.title === targetName) {
-        const nextTab = tabs[index + 1] || tabs[index - 1];
-        if (nextTab) {
-          activeName = nextTab.name;
-        }
-      }
-    });
-  }
-
-  activeTab.value = activeName;
-  tabList.value = tabs.filter((tab) => tab.name !== targetName);
-};
-
-const changeTab = (tab) => {
-  router.push(tab);
-};
-
-onBeforeMount(() => {
-  initTabList();
-});
 </script>
 <style scoped>
 .f-tag-list {
