@@ -141,7 +141,9 @@ const handleRefresh = () => location.reload();
   .header-logo {
     @apply flex
     items-center
-    justify-center;
+    justify-center
+    text-xl
+    font-thin;
     width: 250px;
   }
 
