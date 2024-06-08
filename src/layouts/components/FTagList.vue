@@ -84,17 +84,18 @@ const removeTab = (targetName) => {
   let activeName = activeTab.value;
   if (activeName === targetName) {
     tabs.forEach((tab, index) => {
-      if (tab.title === targetName) {
+      if (tab.path === targetName) {
         const nextTab = tabs[index + 1] || tabs[index - 1];
         if (nextTab) {
-          activeName = nextTab.name;
+          activeName = nextTab.path;
         }
       }
     });
   }
 
   activeTab.value = activeName;
-  tabList.value = tabs.filter((tab) => tab.name !== targetName);
+  tabList.value = tabList.value.filter((tab) => tab.path !== targetName);
+  cookies.set("tabList", tabList.value);
 };
 
 const changeTab = (tab) => {
