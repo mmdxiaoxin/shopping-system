@@ -19,6 +19,7 @@
     "@vueuse/integrations": "^10.9.0",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
+    "echarts": "^5.5.0",
     "element-plus": "^2.6.1",
     "gsap": "^3.12.5",
     "nprogress": "^0.2.0",

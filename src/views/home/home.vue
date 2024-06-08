@@ -54,6 +54,13 @@
     </el-row>
 
     <HomeNavs />
+
+    <el-row :gutter="20">
+      <el-col :span="12" :offset="0">
+        <HomeChart />
+      </el-col>
+      <el-col :span="12" :offset="0"></el-col>
+    </el-row>
   </div>
 </template>
 <script setup>
@@ -61,6 +68,7 @@ import { ref } from "vue";
 import { getStatistics1 } from "@/api/modules/dashboard";
 import CountTo from "@/views/home/Components/CountTo.vue";
 import HomeNavs from "@/views/home/Components/HomeNavs.vue";
+import HomeChart from "@/views/home/Components/HomeChart.vue";
 
 const panelsData = ref([]);
 const getStatisticsData = async () => {
