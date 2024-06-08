@@ -18,7 +18,7 @@
     </el-tabs>
 
     <span class="tag-btn">
-      <el-dropdown>
+      <el-dropdown @command="handleTabList">
         <span class="el-dropdown-link">
           <el-icon>
             <arrow-down />
@@ -26,11 +26,8 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>Action 1</el-dropdown-item>
-            <el-dropdown-item>Action 2</el-dropdown-item>
-            <el-dropdown-item>Action 3</el-dropdown-item>
-            <el-dropdown-item disabled>Action 4</el-dropdown-item>
-            <el-dropdown-item divided>Action 5</el-dropdown-item>
+            <el-dropdown-item command="clearOther">关闭其他</el-dropdown-item>
+            <el-dropdown-item command="clearAll">关闭全部</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -95,6 +92,23 @@ const removeTab = (targetName) => {
 
   activeTab.value = activeName;
   tabList.value = tabList.value.filter((tab) => tab.path !== targetName);
+  cookies.set("tabList", tabList.value);
+};
+
+const handleTabList = (tabCommand) => {
+  if (tabCommand === "clearAll") {
+    activeTab.value = "/";
+    tabList.value = [
+      {
+        title: "后台首页",
+        path: "/",
+      },
+    ];
+  } else if (tabCommand === "clearOther") {
+    tabList.value = tabList.value.filter(
+      (tab) => tab.path === "/" || tab.path === activeTab.value,
+    );
+  }
   cookies.set("tabList", tabList.value);
 };
 
