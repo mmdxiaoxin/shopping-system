@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="never" class="mt-5">
+  <el-card shadow="never">
     <template #header>
       <div class="flex justify-between">
         <span class="text-sm">订单统计</span>
@@ -34,11 +34,14 @@ const options = [
 ];
 const handleChoose = (type) => {
   current.value = type;
-  drawnLineChart();
+  getChartData();
 };
+
+let myChart = null;
+let option = {};
 const drawnLineChart = () => {
-  let myChart = echarts.init(lineChart.value);
-  let option = {
+  myChart = echarts.init(lineChart.value);
+  option = {
     xAxis: {
       type: "category",
       data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -57,12 +60,15 @@ const drawnLineChart = () => {
       },
     ],
   };
+  useEcharts(myChart, option);
+};
+const getChartData = () => {
   myChart.showLoading();
   getStatistics3(current.value)
-    .then((data) => {
-      option.xAxis.data = data.x;
-      option.series[0].data = data.y;
-      useEcharts(myChart, option);
+    .then(({ x: XData, y: YData }) => {
+      option.xAxis.data = XData;
+      option.series[0].data = YData;
+      myChart.setOption(option);
     })
     .finally(() => {
       myChart.hideLoading();
@@ -71,6 +77,7 @@ const drawnLineChart = () => {
 
 onMounted(() => {
   drawnLineChart();
+  getChartData();
 });
 </script>
 <style scoped></style>
