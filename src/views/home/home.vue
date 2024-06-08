@@ -1,29 +1,66 @@
 <template>
-  <div>后台首页</div>
   <div>
-    <MyInput ref="inputRef" v-model="data" placeholder="地址">
-      <template #prepend>
-        <el-select v-model="select" placeholder="Select" style="width: 115px">
-          <el-option label="Restaurant" value="1" />
-          <el-option label="Order No." value="2" />
-          <el-option label="Tel" value="3" />
-        </el-select>
+    <el-row :gutter="20">
+      <template v-if="panelsData.length === 0">
+        <el-col :span="6" v-for="i in 4" :key="i">
+          <el-skeleton style="width: 100%" animated loading>
+            <template #template>
+              <el-card shadow="hover" class="border-0">
+                <template #header>
+                  <div class="flex justify-between">
+                    <el-skeleton-item variant="text" style="width: 50%" />
+                    <el-skeleton-item variant="text" style="width: 10%" />
+                  </div>
+                </template>
+                <el-skeleton-item variant="h3" style="width: 80%" />
+                <el-divider />
+                <div class="flex justify-between text-sm text-gray-500">
+                  <el-skeleton-item variant="text" style="width: 50%" />
+                  <el-skeleton-item variant="text" style="width: 10%" />
+                </div>
+              </el-card>
+            </template>
+          </el-skeleton>
+        </el-col>
       </template>
-      <template #append>
-        <el-button :icon="Search" />
-      </template>
-    </MyInput>
+
+      <el-col
+        :span="6"
+        :offset="0"
+        v-for="(
+          { subTitle, subValue, title, unit, unitColor, value }, index
+        ) in panelsData"
+        :key="index"
+      >
+        <el-card shadow="hover" class="border-0">
+          <template #header>
+            <div class="flex justify-between">
+              <span class="text-sm">{{ title }}</span>
+              <el-tag :type="unitColor || 'primary'" effect="plain">
+                {{ unit }}
+              </el-tag>
+            </div>
+          </template>
+          <span class="text-3xl font-bold text-gray-500">
+            {{ value }}
+          </span>
+          <el-divider />
+          <div class="flex justify-between text-sm text-gray-500">
+            <span>{{ subTitle }}</span>
+            <span>{{ subValue }}</span>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script setup>
-import MyInput from "@/components/MyInput.vue";
-import { ref, onMounted } from "vue";
-import { Search } from "@element-plus/icons-vue";
-const data = ref("");
-const select = ref("");
-const inputRef = ref();
-
-onMounted(() => {
-  inputRef.value.focus();
-});
+import { ref } from "vue";
+import { getStatistics1 } from "@/api/modules/dashboard";
+const panelsData = ref([]);
+const getStatisticsData = async () => {
+  const { panels } = await getStatistics1();
+  panelsData.value = panels;
+};
+getStatisticsData();
 </script>
