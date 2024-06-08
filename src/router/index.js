@@ -10,7 +10,10 @@ const router = createRouter({
   routes: [...staticRouter, ...errorRouter],
 });
 
-//全局路由守卫
+// 防止重复获取用户信息
+let hasGetInfo = false;
+
+// 全局路由守卫
 router.beforeEach(async (to, from, next) => {
   //显示全局Loading
   showFullLoading();
@@ -31,8 +34,9 @@ router.beforeEach(async (to, from, next) => {
 
   //登陆后，自动获取用户信息
   let hasNewRoutes = false;
-  if (token && store) {
+  if (token && !hasGetInfo && store) {
     const { menus } = await store.dispatch("getUserInfo");
+    hasGetInfo = true;
     hasNewRoutes = addRoutes(menus);
   }
 
