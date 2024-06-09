@@ -45,6 +45,7 @@ export function useTabList() {
           const nextTab = tabs[index + 1] || tabs[index - 1];
           if (nextTab) {
             activeName = nextTab.path;
+            router.push(activeName);
           }
         }
       });
