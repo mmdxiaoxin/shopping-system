@@ -1,5 +1,5 @@
 <template>
-  <el-aside width="220px" class="image-aside">
+  <el-aside width="220px" class="image-aside" v-loading="loading">
     <div class="top">
       <AsideItem
         :active="activeId === item.id"
@@ -9,7 +9,16 @@
         {{ item.name }}
       </AsideItem>
     </div>
-    <div class="bottom">分页区域</div>
+    <div class="bottom">
+      <el-pagination
+        background
+        layout="prev, next"
+        :total="total"
+        :current-page="currentPage"
+        :page-size="limit"
+        @current-change="getListData"
+      />
+    </div>
   </el-aside>
 </template>
 <script setup>
@@ -21,10 +30,19 @@ const loading = ref(false);
 const list = ref([]);
 const activeId = ref(0);
 
-function getListData() {
+// 分页
+const currentPage = ref(1);
+const total = ref(0);
+const limit = ref(10);
+
+function getListData(page = null) {
+  if (typeof page === "number") {
+    currentPage.value = page;
+  }
   loading.value = true;
-  getImageClassList(1)
-    .then(({ list: listData }) => {
+  getImageClassList(currentPage.value)
+    .then(({ list: listData, totalCount }) => {
+      total.value = totalCount;
       list.value = listData;
       let item = list.value[0];
       if (item) {
@@ -35,6 +53,7 @@ function getListData() {
       loading.value = false;
     });
 }
+
 getListData();
 </script>
 <style scoped>
