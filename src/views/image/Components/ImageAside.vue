@@ -7,6 +7,7 @@
         :key="index"
         @edit="handleEdit(item)"
         @delete="handleDelete(item.id)"
+        @click="handleChangeActive(item.id)"
       >
         {{ item.name }}
       </AsideItem>
@@ -51,6 +52,8 @@ import {
 import FormDrawer from "@/components/FormDrawer/FormDrawer.vue";
 import { toast } from "@/utils/common";
 
+const emit = defineEmits(["change"]);
+
 /**
  * Aside基本模块
  */
@@ -60,6 +63,11 @@ const activeId = ref(0);
 const currentPage = ref(1);
 const total = ref(0);
 const limit = ref(10);
+
+function handleChangeActive(id) {
+  activeId.value = id;
+  emit("change", id);
+}
 
 function getListData(page = null) {
   if (typeof page === "number") {
@@ -72,7 +80,7 @@ function getListData(page = null) {
       list.value = listData;
       let item = list.value[0];
       if (item) {
-        activeId.value = item.id;
+        handleChangeActive(item.id);
       }
     })
     .finally(() => {
