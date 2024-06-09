@@ -1,6 +1,6 @@
 <template>
   <el-aside width="220px" class="image-aside" v-loading="loading">
-    <div class="top">
+    <div class="main-top">
       <AsideItem
         :active="activeId === item.id"
         v-for="(item, index) in list"
@@ -12,7 +12,7 @@
         {{ item.name }}
       </AsideItem>
     </div>
-    <div class="bottom">
+    <div class="main-bottom">
       <el-pagination
         background
         layout="prev, next"
@@ -168,7 +168,7 @@ defineExpose({
   border-right: 1px solid #eeeeee;
   position: relative;
 
-  .top {
+  .main-top {
     position: absolute;
     top: 0;
     right: 0;
@@ -177,7 +177,7 @@ defineExpose({
     overflow-y: auto;
   }
 
-  .bottom {
+  .main-bottom {
     position: absolute;
     bottom: 0;
     height: 50px;

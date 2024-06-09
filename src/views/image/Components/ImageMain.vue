@@ -1,9 +1,35 @@
 <template>
   <el-main class="image-main">
-    <div class="top">
-      <div v-for="(item, index) in list" :key="index">{{ item.url }}</div>
+    <div class="main-top p-3">
+      <el-row :gutter="10">
+        <el-col
+          :span="6"
+          :offset="0"
+          v-for="(item, index) in list"
+          :key="index"
+        >
+          <el-card
+            shadow="hover"
+            class="relative mb-3"
+            :body-style="{ padding: 0 }"
+          >
+            <el-image
+              :src="item.url"
+              fit="cover"
+              class="h-40"
+              style="width: 100%"
+              :lazy="true"
+            ></el-image>
+            <div class="image-title">{{ item.name }}</div>
+            <div class="flex items-center justify-center p-2">
+              <el-button type="primary" size="small" text>重命名</el-button>
+              <el-button type="primary" size="small" text>删除</el-button>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
     </div>
-    <div class="bottom">
+    <div class="main-bottom">
       <el-pagination
         background
         layout="prev,pager, next"
@@ -59,16 +85,30 @@ defineExpose({
 .image-main {
   position: relative;
 
-  .top {
+  .main-top {
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
     bottom: 50px;
     overflow-y: auto;
+
+    .image-title {
+      position: absolute;
+      top: 122px;
+      left: -1px;
+      right: -1px;
+      @apply text-sm
+      truncate
+      text-gray-100
+      bg-opacity-50
+      bg-gray-800
+      px-2
+      py-1;
+    }
   }
 
-  .bottom {
+  .main-bottom {
     position: absolute;
     bottom: 0;
     height: 50px;
