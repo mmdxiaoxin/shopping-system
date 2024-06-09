@@ -6,23 +6,31 @@
       text
       type="primary"
       size="small"
-      @click="$emit('edit')"
+      @click="emit('edit')"
     >
-      <el-icon :size="12"><Edit /></el-icon>
+      <el-icon :size="12">
+        <Edit />
+      </el-icon>
     </el-button>
-    <el-button
-      text
-      class="px-1"
-      type="primary"
-      size="small"
-      @click="$emit('delete')"
+    <el-popconfirm
+      title="是否要删除该分类？"
+      confirmButtonText="确认"
+      cancelButtonText="取消"
+      @confirm="emit('delete')"
     >
-      <el-icon :size="12"><Close /></el-icon>
-    </el-button>
+      <template #reference>
+        <el-button text class="px-1" type="primary" size="small">
+          <el-icon :size="12">
+            <Close />
+          </el-icon>
+        </el-button>
+      </template>
+    </el-popconfirm>
   </div>
 </template>
 <script setup>
 import { Close, Edit } from "@element-plus/icons-vue";
+
 const props = defineProps({
   active: Boolean,
 });
@@ -43,6 +51,7 @@ const emit = defineEmits(["edit", "delete"]);
     @apply bg-blue-50;
   }
 }
+
 .active {
   @apply bg-blue-50;
 }

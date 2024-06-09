@@ -6,6 +6,7 @@
         v-for="(item, index) in list"
         :key="index"
         @edit="handleEdit(item)"
+        @delete="handleDelete(item.id)"
       >
         {{ item.name }}
       </AsideItem>
@@ -45,6 +46,7 @@ import {
   getImageClassList,
   createImageClass,
   updateImageClass,
+  deleteImageClass,
 } from "@/api/modules/image-class";
 import FormDrawer from "@/components/FormDrawer/FormDrawer.vue";
 import { toast } from "@/utils/common";
@@ -78,6 +80,18 @@ function getListData(page = null) {
     });
 }
 
+function handleDelete(id) {
+  loading.value = true;
+  deleteImageClass(id)
+    .then(() => {
+      toast("删除成功");
+      getListData(currentPage.value);
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+}
+
 getListData();
 
 /**
@@ -100,24 +114,25 @@ const rules = {
 };
 const editId = ref(0);
 const drawerTitle = computed(() => (editId.value ? "修改" : "新增"));
+
 // 新增
-const handleCreate = () => {
+function handleCreate() {
   editId.value = 0;
   form.name = "";
   form.order = 50;
   formDrawerRef.value.open();
-};
+}
 
 // 编辑
-const handleEdit = (row) => {
+function handleEdit(row) {
   editId.value = row.id;
   form.name = row.name;
   form.order = row.order;
   formDrawerRef.value.open();
-};
+}
 
 // 提交
-const handleSubmit = () => {
+function handleSubmit() {
   formRef.value.validate((valid) => {
     if (!valid) return;
     formDrawerRef.value.showLoading();
@@ -134,7 +149,7 @@ const handleSubmit = () => {
         formDrawerRef.value.hideLoading();
       });
   });
-};
+}
 
 defineExpose({
   handleCreate,
