@@ -136,7 +136,7 @@ const handleRefresh = () => location.reload();
   left-0
   right-0;
   height: 64px;
-  z-index: 100000;
+  z-index: 100;
 
   .header-logo {
     @apply flex
